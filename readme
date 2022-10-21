@@ -1,0 +1,40 @@
+## ITEM
+id, name, description, price
+
+## ORDER ITEM
+itemId, price, quantity
+
+## ORDER
+orderItems, code, CPF, date
+
+CREATE TABLE items (
+  	id uuid PRIMARY KEY,
+  	name VARCHAR NOT NULL,
+  	description VARCHAR,
+  	price NUMERIC NOT NULL
+);
+
+CREATE TABLE order_items (
+	  id uuid PRIMARY KEY,
+  	id_item uuid NOT NULL,
+  	id_order uuid NOT NULL,
+  	price NUMERIC NOT NULL,
+  	quantity INTEGER NOT NULL,
+  	CONSTRAINT fk_item FOREIGN KEY (id_item) REFERENCES items(id),
+  	CONSTRAINT fk_order FOREIGN KEY (id_order) REFERENCES orders(id)
+);
+
+CREATE TABLE orders (
+	  id uuid PRIMARY KEY,
+  	code varchar NOT NULL,
+  	cpf varchar NOT NULL,
+  	date timestamp NOT NULL
+);
+
+CREATE TABLE customers (
+	  id uuid PRIMARY KEY,
+  	cpf VARCHAR UNIQUE NOT NULL,
+  	name VARCHAR NOT NULL,
+  	email VARCHAR NOT NULL,
+  	password VARCHAR NOT NULL
+);
